@@ -18,6 +18,14 @@ type User {
     me: User
   }
 
+type Subscription {
+  _id: ID
+  name: String
+  price: Int
+  active: Boolean
+  pay_date: Date
+}
+
 
 `
 
