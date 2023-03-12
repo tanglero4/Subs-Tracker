@@ -10,7 +10,7 @@ query user($userId: ID!) {
     subs {
       _id
       subName
-      description
+      subCost
     }
   }
 }

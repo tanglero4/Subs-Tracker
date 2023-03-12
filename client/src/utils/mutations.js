@@ -14,8 +14,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_SUB = gql`
-  mutation addSub($subName: String!, $description: String!) {
-  addSub(subName: $subName, description: $description) {
+  mutation addSub($subName: String!, $subCost: String!) {
+  addSub(subName: $subName, subCost: $subCost) {
     _id
     subName
     subCost
