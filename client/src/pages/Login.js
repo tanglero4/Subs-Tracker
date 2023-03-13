@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TextField, Typography, Button, Card, Container, Box } from '@mui/material';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
@@ -12,8 +9,9 @@ const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
     setFormState({
       ...formState,
@@ -21,19 +19,21 @@ const Login = (props) => {
     });
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    
+  // submit form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
     try {
       const { data } = await login({
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token, data.login.user._id);
-    } catch (error) {
-      console.log(error);
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
     }
 
+    // clear form values
     setFormState({
       email: '',
       password: '',
@@ -41,71 +41,52 @@ const Login = (props) => {
   };
 
   return (
-    <main>
-      <Box sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-      }}>
-        <Typography variant='h4' align='center' sx={{ m: 8 }} gutterBottom>Welcome to Subs Tracker! <AttachMoneyIcon />. Login with your existing account below!</Typography>
-        {data ? (
-          <Typography variant='subtitle1'>Successfully logged in! You may now head{' '}<Link to='/'>back to the hompage.</Link></Typography>
-        ) : (
-          <Container sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            m: 3,
-          }}>
-            <Card variant='outlined' sx={{
-              maxWidth: 600,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              p: 2,
-              flex: 'auto'
-            }}>
-              <Typography variant='h4' align='center' gutterBottom>Login</Typography>
+    <main className="flex-row justify-center mb-4">
+      <div className="col-12 col-lg-10">
+        <div className="card">
+          <h4 className="card-header bg-dark text-light p-2">Login</h4>
+          <div className="card-body">
+            {data ? (
+              <p>
+                Success! You may now head{' '}
+                <Link to="/">back to the homepage.</Link>
+              </p>
+            ) : (
               <form onSubmit={handleFormSubmit}>
-                <Container sx={{ p: 2 }}>
-                  <TextField
-                    label='Your email'
-                    variant='outlined'
-                    name='email'
-                    type='email'
-                    value={formState.email}
-                    onChange={handleChange}
-                  />
-                </Container>
-                <Container sx={{ p: 2 }}>
-                  <TextField
-                    label='Your password'
-                    variant='outlined'
-                    name='password'
-                    type='password'
-                    value={formState.password}
-                    onChange={handleChange}
-                  />
-                </Container>
-                <Container sx={{
-                  p: 2,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <Button variant='contained' type='submit'>Login</Button>
-                </Container>
+                <input
+                  className="form-input"
+                  placeholder="Your email"
+                  name="email"
+                  type="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                />
+                <input
+                  className="form-input"
+                  placeholder="******"
+                  name="password"
+                  type="password"
+                  value={formState.password}
+                  onChange={handleChange}
+                />
+                <button
+                  className="btn btn-block btn-primary"
+                  style={{ cursor: 'pointer' }}
+                  type="submit"
+                >
+                  Submit
+                </button>
               </form>
-            </Card>
-          </Container>
-        )}
+            )}
 
-        {error && (
-          <div>{error.message}</div>
-        )}
-      </Box>
+            {error && (
+              <div className="my-3 p-3 bg-danger text-white">
+                {error.message}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </main>
   );
 };

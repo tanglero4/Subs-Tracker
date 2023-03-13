@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TextField, Typography, Button, Card, Container, Box } from '@mui/material';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
@@ -9,7 +7,6 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const Signup = () => {
-
   const [formState, setFormState] = useState({
     username: '',
     email: '',
@@ -17,9 +14,8 @@ const Signup = () => {
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
-  /// UPDATES STATE BASED ON INPUT ///
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
     setFormState({
       ...formState,
@@ -27,101 +23,78 @@ const Signup = () => {
     });
   };
 
-  /// HANDLE SUBMISSION OF FORM ///
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
 
     try {
       const { data } = await addUser({
         variables: { ...formState },
       });
 
-      Auth.login(data.addUser.token, data.addUser.user._id);
-    } catch (error) {
-      console.log(error);
-    };
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <main>
-      <Box sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-      }}>
-        <Typography variant='h4' align='center' sx={{ m: 8}} gutterBottom>Welcome to Sub Tracker <AttachMoneyIcon />. Let's get you signed up with a new account!</Typography>
-        {data ? (
-          <Typography variant='subtitle1'>Successfully created an account. You may now head{' '}<Link to='/'>back to the hompage.</Link></Typography>
-        ) : (
-          <Container sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            m: 3,
-          }}>
-            <Card variant='outlined' sx={{
-              maxWidth: 600,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              p: 2,
-              flex: 'auto'
-            }}>
-              <Typography variant='h4' align='center' gutterBottom>Sign Up</Typography>
+    <main className="flex-row justify-center mb-4">
+      <div className="col-12 col-lg-10">
+        <div className="card">
+          <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
+          <div className="card-body">
+            {data ? (
+              <p>
+                Success! You may now head{' '}
+                <Link to="/">back to the homepage.</Link>
+              </p>
+            ) : (
               <form onSubmit={handleFormSubmit}>
-                <Container sx={{ p: 2 }}>
-                  <TextField
-                    label='Username'
-                    variant='outlined'
-                    name='username'
-                    type='text'
-                    value={formState.username}
-                    onChange={handleChange}
-                  />
-                </Container>
-                <Container sx={{ p: 2 }}>
-                  <TextField
-                    label='Email'
-                    variant='outlined'
-                    name='email'
-                    type='text'
-                    value={formState.email}
-                    onChange={handleChange}
-                  />
-                </Container>
-                <Container sx={{ p: 2 }}>
-                  <TextField
-                    label='Password'
-                    variant='outlined'
-                    name='password'
-                    type='password'
-                    value={formState.password}
-                    onChange={handleChange}
-                  />
-                </Container>
-                <Container sx={{
-                  p: 2,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <Button variant='contained' type='submit'>Sign Up</Button>
-                </Container>
+                <input
+                  className="form-input"
+                  placeholder="Your username"
+                  name="username"
+                  type="text"
+                  value={formState.name}
+                  onChange={handleChange}
+                />
+                <input
+                  className="form-input"
+                  placeholder="Your email"
+                  name="email"
+                  type="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                />
+                <input
+                  className="form-input"
+                  placeholder="******"
+                  name="password"
+                  type="password"
+                  value={formState.password}
+                  onChange={handleChange}
+                />
+                <button
+                  className="btn btn-block btn-primary"
+                  style={{ cursor: 'pointer' }}
+                  type="submit"
+                >
+                  Submit
+                </button>
               </form>
-            </Card>
-          </Container>
-        )}
+            )}
 
-        {error && (
-          <div>
-            {error.message}
+            {error && (
+              <div className="my-3 p-3 bg-danger text-white">
+                {error.message}
+              </div>
+            )}
           </div>
-        )}
-      </Box>
+        </div>
+      </div>
     </main>
   );
-};
+}
 
 export default Signup;
