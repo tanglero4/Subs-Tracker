@@ -11,6 +11,12 @@ const resolvers = {
         const params = _id ? { _id } : {};
         return Subscription.find(params);
         },
+        me: async (parent, args, context) => {
+          if (context.user) {
+            return User.findOne({ _id: context.user._id }).populate('thoughts');
+          }
+          throw new AuthenticationError('You need to be logged in!');
+        },
     },
     Mutation: {
         newSub: async (parent, args) => {

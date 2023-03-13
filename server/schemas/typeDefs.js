@@ -14,17 +14,27 @@ type User {
     user: User
   }
 
-  type Query {
-    me: User
+  type Subscription {
+    _id: ID
+    name: String
+    price: Int
+    active: Boolean
+    pay_date: String
   }
 
-type Subscription {
-  _id: ID
-  name: String
-  price: Int
-  active: Boolean
-  pay_date: Date
-}
+  type Query {
+    me: User
+    allSubs: [Subscription]
+    findSub(subId: ID!): Subscription
+  }
+
+  type Mutation {
+    newSub(name: String!, price: Int!, pay_date: String): Subscription
+    deleteSub(name: String!): Subscription
+    updateSubscription(name: String!, price: Int!, active: Boolean!, pay_date: String!): Subscription
+  }
+
+
 
 
 `
