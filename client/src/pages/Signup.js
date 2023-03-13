@@ -1,100 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
 
-import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../utils/mutations';
-
-import Auth from '../utils/auth';
-
-const Signup = () => {
-  const [formState, setFormState] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
-  const [addUser, { error, data }] = useMutation(ADD_USER);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    console.log(formState);
-
-    try {
-      const { data } = await addUser({
-        variables: { ...formState },
-      });
-
-      Auth.login(data.addUser.token);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
+function SignUpPage() {
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your username"
-                  name="username"
-                  type="text"
-                  value={formState.name}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
-
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </main>
+    <div>
+      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#f1f1f1", width: "100%", padding: "1em" }}>
+        <h1>SubsTracker</h1>
+        <div className="logo" style={{ width: "100px", height: "100px", backgroundColor: "blue" }}></div>
+      </header>
+      <form className="signup-form" style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "2em" }}>
+        <h2>Sign up</h2>
+        <input type="text" placeholder="First name" style={{ padding: "0.5em", margin: "0.5em", borderRadius: "5px", border: "1px solid #ccc" }} />
+        <input type="text" placeholder="Last name" style={{ padding: "0.5em", margin: "0.5em", borderRadius: "5px", border: "1px solid #ccc" }} />
+        <input type="text" placeholder="Username" style={{ padding: "0.5em", margin: "0.5em", borderRadius: "5px", border: "1px solid #ccc" }} />
+        <input type="password" placeholder="Password" style={{ padding: "0.5em", margin: "0.5em", borderRadius: "5px", border: "1px solid #ccc" }} />
+        <button type="submit" style={{ padding: "0.5em", margin: "0.5em", borderRadius: "5px", border: "none", backgroundColor: "#4caf50", color: "white", cursor: "pointer" }}>Sign up</button>
+      </form>
+    </div>
   );
-};
+}
 
-export default Signup;
+export default SignUpPage;
