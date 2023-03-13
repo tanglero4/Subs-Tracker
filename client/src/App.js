@@ -11,9 +11,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import SingleThought from './pages/SingleThought';
-import Profile from './pages/Profile';
-import Header from './components/Header';
+import SingleThought from './pages/landing';
+import Dashboard from './pages/Dashboard';
+import Header from './components/Navbar';
 import Footer from './components/Footer';
 
 // Construct our main GraphQL API endpoint
@@ -62,11 +62,11 @@ function App() {
               />
               <Route 
                 path="/me"
-                element={<Profile />}
+                element={<Dashboard />}
               />
               <Route 
                 path="/profiles/:username"
-                element={<Profile />}
+                element={<Dashboard />}
               />
               <Route 
                 path="/thoughts/:thoughtId"
