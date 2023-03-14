@@ -23,6 +23,10 @@ class AuthService {
     localStorage.removeItem('id_token');
     window.location.assign('/');
   }
+  getProfile() {
+    return decode(this.getToken());
+  }
 }
+
 
 export default new AuthService();

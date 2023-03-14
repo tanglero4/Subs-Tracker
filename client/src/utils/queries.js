@@ -32,11 +32,12 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      subCount
-      subs {
+      subscriptions {
         _id
-        subName
-        subCost
+        name
+        price
+        pay_date
+        active
       }
     }
   }

@@ -1,11 +1,27 @@
 import React from 'react';
 
-function Subscriptions() {
+import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../utils/queries';
+import Auth from '../utils/auth';
+
+function Home() {
+  const userprofile = Auth.getProfile().data.username
+  const { loading, data } = useQuery(QUERY_ME, {
+    variables: { username: userprofile },
+  });
+  const user = data?.me || {};
+  console.log(user)
+  console.log(data)
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
+
     <div>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f1f1f1', width: '100%', padding: '1em' }}>
         <h1>SubsTracker</h1>
       </header>
+      <h1>Welcome {(data.me.username)}!</h1>
       <section className="subscriptions" style={{ display: 'flex', flexWrap: 'wrap', marginTop: '2em' }}>
         <table style={{ flex: 1, marginRight: '2em' }}>
           <thead>
@@ -42,4 +58,4 @@ function Subscriptions() {
   );
 }
 
-export default Subscriptions;
+export default Home;
