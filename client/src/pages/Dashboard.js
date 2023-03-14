@@ -1,26 +1,44 @@
 import React, { useState } from 'react';
 import { Box, Container, Typography, TextField, Button, Card } from '@mui/material';
 
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_USER } from '../utils/queries';
+import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import { ADD_SUB } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 import SubCard from '../components/SubCard/SubCard';
 
+
+  // const totalcost = 0
+  // sub.forEach((sub)=> totalcost += sub.Cost)
+  // return(
+  
+  // <div>
+  //   {sub && sub.map((sub,i)=> {return(<div key= {i}>{sub.subName} {sub.subCost}</div>)})}
+  // </div>
+  // )
+  
+
 const Dashboard = () => {
 
-  let { userId } = useParams();
-
   const [formState, setFormState] = useState({ subName: '', subCost: '' });
+  const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(QUERY_USER, {
-    variables: { userId: userId }
-  })
+  const { loading, data } = useQuery(QUERY_ME, {
+    variables: { username: userParam },
+  });
+ 
 
-  const subInfo = data?.user?.subs;
-  const subLength = data?.user?.subs?.length;
+  const user = data?.me || data?.user || {};
+  // navigate to personal profile page if username is yours
+  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+    return <Navigate to="/me" />;
+  }
+
+
+  // const subInfo = data?.user?.subs;
+  // const subLength = data?.user?.subs?.length;
 
   const [addSub, { error, subData }] = useMutation(ADD_SUB);
 

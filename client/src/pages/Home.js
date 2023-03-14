@@ -5,7 +5,6 @@ function Subscriptions() {
     <div>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f1f1f1', width: '100%', padding: '1em' }}>
         <h1>SubsTracker</h1>
-        <button className="logout-button" style={{ padding: '0.5em', backgroundColor: 'red', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
       </header>
       <section className="subscriptions" style={{ display: 'flex', flexWrap: 'wrap', marginTop: '2em' }}>
         <table style={{ flex: 1, marginRight: '2em' }}>

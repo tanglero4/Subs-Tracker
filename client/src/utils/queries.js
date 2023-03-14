@@ -26,6 +26,21 @@ export const QUERY_SUB = gql`
 }
 `;
 
+export const QUERY_ME = gql`
+  query me {
+    me {
+      _id
+      username
+      email
+      subCount
+      subs {
+        _id
+        subName
+        subCost
+      }
+    }
+  }
+`;
 
 
 

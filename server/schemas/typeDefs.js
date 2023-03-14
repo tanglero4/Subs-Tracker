@@ -32,7 +32,10 @@ type User {
     newSub(name: String!, price: Int!, pay_date: String): Subscription
     deleteSub(name: String!): Subscription
     updateSubscription(name: String!, price: Int!, active: Boolean!, pay_date: String!): Subscription
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
   }
+
 
 
 
