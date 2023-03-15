@@ -14,8 +14,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_SUB = gql`
-  mutation addSub($name: String!, $price: Float!, $pay_Date: String) {
-  addSub(name: $name, price: $price, pay_date: $pay_Date) {
+  mutation addSub($name: String!, $price: Float!, $pay_date: String) {
+  addSub(name: $name, price: $price, pay_date: $pay_date) {
     _id
     active
     name

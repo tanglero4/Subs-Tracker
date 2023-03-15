@@ -6,7 +6,7 @@ import { Box, Container, Typography, TextField, Button, Card } from '@mui/materi
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import Auth from '../utils/auth';
-// import SubCard from '../components/SubCard/SubCard';
+import SubCard from '../components/SubCard/SubCard';
 import { ADD_SUB } from '../utils/mutations';
 
 
@@ -44,15 +44,20 @@ function Home() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("the state", formState)
     try {
+      console.log({...formState})
       const { data } = await addSub({
-        variables: {...formState}
+        variables: {
+          name: formState.name,
+          price: parseInt(formState.price),
+          pay_date: formState.pay_date
+        }
 
       });
-      console.log('data returned', data)
+    console.log(data)
+    document.location.reload()
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     setFormState({
@@ -85,8 +90,8 @@ function Home() {
                 display: 'flex',
                 flexWrap: 'wrap',
               }}>
-                {subInfo.map((sub) => ( <div key={sub._id}></div>
-                  // <SubCard  key={sub._id} name={sub.name}  price={sub.price}/>
+                {subInfo.map((sub) => ( 
+                  <SubCard  key={sub._id} name={sub.name}  price={sub.price}/>
                 ))}
               </Container>
             </>
