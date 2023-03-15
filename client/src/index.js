@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,16 +17,7 @@ ReactDOM.render(
 
 
 
-export default function Home(){
-const totalcost = 0
-Sub.forEach((sub)=> totalcost += sub.Cost)
-return(
 
-<div>
-  {sub && sub.map((sub,i)=> {return(<div key= {i}>{sub.subName} {sub.subCost}</div>)})}
-</div>
-)
-}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
