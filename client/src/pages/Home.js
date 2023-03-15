@@ -26,6 +26,12 @@ function Home() {
   const subInfo = data?.me?.subscriptions || [];
   const subLength = data?.me?.subscriptions.length;
   console.log(user)
+
+
+  //Function for adding total cost of subscriptions ==> inside of a div at bottom of page
+  // const totalcost = 0
+  // sub.forEach((sub)=> totalcost += sub.Cost)
+  // return(
   // console.log(data)
   if (loading) {
     return <div>Loading...</div>;
@@ -164,6 +170,7 @@ function Home() {
               </Container>
             </form>
           </Card>
+
         </Container>
 
         {error && (
