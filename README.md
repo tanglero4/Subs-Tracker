@@ -12,6 +12,10 @@
 - [Email](#Email)
 - [Github](#Github)
 ## Description
+The app allows users to track, organize, and cancel their subscriptions in one central location. 
+SubsTracker provides users with an easy way to stay on top of their subscriptions and avoid unwanted charges. SubsTracker offers features such as:
+Subscription tracking: The app helps users keep track of all their active subscriptions, including the amount paid and the billing cycle.
+Cost analysis: Users will see how much they are spending on subscriptions each month and make informed decisions about which services they should keep or cancel.
 
 
 ## Usage
