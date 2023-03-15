@@ -20,9 +20,13 @@
 
 ## Contributing
 Jarrett Stavey
+
 Luis Alicea
+
 Clyford Hypolite
+
 Tiffany Anglero
+
 Seth Swindell
 
 ## Installation
