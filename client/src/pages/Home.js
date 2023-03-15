@@ -1,60 +1,173 @@
-import React from 'react';
 
-import { useQuery } from '@apollo/client';
+import React, { useState } from 'react';
+
+import { Box, Container, Typography, TextField, Button, Card } from '@mui/material';
+
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import Auth from '../utils/auth';
+// import SubCard from '../components/SubCard/SubCard';
+import { ADD_SUB } from '../utils/mutations';
+
 
 function Home() {
+  const [formState, setFormState] = useState({ name: '', price: '', pay_date: ''});
+  const [addSub, {error}] = useMutation(ADD_SUB);
+
+  // const { data: userdata } = Auth.getUser();
+
+  //go get user from local storage 
   const userprofile = Auth.getProfile().data.username
+  //use user to query database
   const { loading, data } = useQuery(QUERY_ME, {
     variables: { username: userprofile },
   });
   const user = data?.me || {};
+  const subInfo = data?.me?.subscriptions || [];
+  const subLength = data?.me?.subscriptions.length;
   console.log(user)
-  console.log(data)
+  // console.log(data)
   if (loading) {
     return <div>Loading...</div>;
   }
-  return (
 
-    <div>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f1f1f1', width: '100%', padding: '1em' }}>
-        <h1>SubsTracker</h1>
-      </header>
-      <h1>Welcome {(data.me.username)}!</h1>
-      <section className="subscriptions" style={{ display: 'flex', flexWrap: 'wrap', marginTop: '2em' }}>
-        <table style={{ flex: 1, marginRight: '2em' }}>
-          <thead>
-            <tr>
-              <th style={{ backgroundColor: '#f1f1f1', padding: '0.5em', textAlign: 'left', border: '1px solid #ccc' }}>Name</th>
-              <th style={{ backgroundColor: '#f1f1f1', padding: '0.5em', textAlign: 'left', border: '1px solid #ccc' }}>Cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style={{ padding: '0.5em', textAlign: 'left', border: '1px solid #ccc' }}>Netflix</td>
-              <td style={{ padding: '0.5em', textAlign: 'left', border: '1px solid #ccc' }}>$15.99</td>
-            </tr>
-            <tr>
-              <td style={{ padding: '0.5em', textAlign: 'left', border: '1px solid #ccc' }}>Spotify</td>
-              <td style={{ padding: '0.5em', textAlign: 'left', border: '1px solid #ccc' }}>$9.99</td>
-            </tr>
-            <tr>
-              <td style={{ padding: '0.5em', textAlign: 'left', border: '1px solid #ccc' }}>HBO Max</td>
-              <td style={{ padding: '0.5em', textAlign: 'left', border: '1px solid #ccc' }}>$14.99</td>
-            </tr>
-          </tbody>
-        </table>
-        <aside className="add-subscription" style={{ width: '30%', marginLeft: '2em' }}>
-          <h2>Add a subscription</h2>
-          <label htmlFor="name" style={{ display: 'block', marginBottom: '0.5em' }}>Name:</label>
-          <input type="text" id="name" style={{ display: 'block', marginBottom: '0.5em' }} />
-          <label htmlFor="cost" style={{ display: 'block', marginBottom: '0.5em' }}>Cost:</label>
-          <input type="text" id="cost" style={{ display: 'block', marginBottom: '0.5em' }} />
-          <button style={{ marginTop: '0.5em', backgroundColor: '#4caf50', color: 'white', border: 'none', padding: '0.5em', borderRadius: '5px', cursor: 'pointer' }}>Add</button>
-        </aside>
-      </section>
-    </div>
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log("the state", formState)
+    try {
+      const { data } = await addSub({
+        variables: {...formState}
+
+      });
+      console.log('data returned', data)
+    } catch (error) {
+      console.log(error);
+    }
+
+    setFormState({
+      name: '',
+      price: '',
+      pay_date: '',
+    });
+  };
+
+  if (loading) {
+    return (
+      <div>Loading, one moment please.</div>
+    )
+  }
+  return (
+    <main>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        p: 2,
+      }}>
+        <Container sx={{ flex: '2 1 400px', maxWidth: 700, display: 'flex', flexDirection: 'column', }}>
+          <Typography variant='h4' sx={{ p: 3, mt: 3 }}>Welcome back {(data.me.username)}!</Typography>
+          {subLength !== 0 ? (
+            <>
+              <Typography variant='h5' sx={{ p: 3 }}>Here is your subscriptions:</Typography>
+              <Container sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+              }}>
+                {subInfo.map((sub) => ( <div key={sub._id}></div>
+                  // <SubCard  key={sub._id} name={sub.name}  price={sub.price}/>
+                ))}
+              </Container>
+            </>
+          ) : (
+            <div>
+              <h2>You currently have no subscriptions, add a new one below.</h2>
+            </div>
+          )}
+        </Container> 
+        <Container sx={{
+          display: 'flex',
+          flex: '1 1 400px',
+          minWidth: '250px',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          mt: 8,
+        }}>
+          <Card variant='outlined' sx={{
+            maxWidth: 600,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            p: 2,
+            flex: 'auto'
+          }}>
+            <Typography variant='h4' align='center'>Add a New Subscription:</Typography>
+            <form onSubmit={handleFormSubmit}>
+              <Container sx={{ p: 2 }}>
+                <TextField
+                  label='name'
+                  variant='outlined'
+                  type='text'
+                  name='name'
+                  value={formState.name}
+                  onChange={handleChange}
+                />
+              </Container>
+
+              <Container sx={{ p: 2 }}>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label='price'
+                  variant='outlined'
+                  multiline
+                  rows={4}
+                  type='number'
+                  name='price'
+                  value={formState.price}
+                  onChange={handleChange}
+                />
+              </Container>
+              <Container sx={{ p: 2 }}>
+                <TextField
+                  label='pay_date'
+                  variant='outlined'
+                  type='text'
+                  name='pay_date'
+                  value={formState.pay_date}
+                  onChange={handleChange}
+                />
+              </Container>
+              <Container sx={{
+                p: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Button variant='contained' type='submit'>Add Subscription</Button>
+              </Container>
+            </form>
+          </Card>
+        </Container>
+
+        {error && (
+          <div>
+            {error.message}
+          </div>
+        )}
+      </Box>
+    </main>
   );
 }
 

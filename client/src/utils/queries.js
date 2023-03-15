@@ -18,7 +18,7 @@ query user($userId: ID!) {
 
 export const QUERY_SUB = gql`
   query getSub {
-  subs {
+  subscriptions {
     _id
     subName
     subCost

@@ -14,11 +14,13 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_SUB = gql`
-  mutation addSub($subName: String!, $subCost: String!) {
-  addSub(subName: $subName, subCost: $subCost) {
+  mutation addSub($name: String!, $price: Float!, $pay_Date: String) {
+  addSub(name: $name, price: $price, pay_date: $pay_Date) {
     _id
-    subName
-    subCost
+    active
+    name
+    pay_date
+    price
   }
 }
 `;

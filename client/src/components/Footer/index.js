@@ -14,7 +14,7 @@ const Footer = () => {
       <Container sx={{
         p: 3,
       }}>
-        <Typography variant='subtitle2' align='center'>©2022 Sub Tracker</Typography>
+        <Typography variant='subtitle2' align='center'>©2023 Sub Tracker</Typography>
       </Container>
     </Box>
   )
