@@ -7,6 +7,7 @@ type User {
     username: String
     email: String
     password: String
+    subscriptions: [Subscription]
   }
 
   type Auth {
@@ -17,7 +18,7 @@ type User {
   type Subscription {
     _id: ID
     name: String
-    price: Int
+    price: Float
     active: Boolean
     pay_date: String
   }
@@ -29,10 +30,13 @@ type User {
   }
 
   type Mutation {
-    newSub(name: String!, price: Int!, pay_date: String): Subscription
+    addSub(name: String!, price: Float! pay_date: String ): Subscription
     deleteSub(name: String!): Subscription
-    updateSubscription(name: String!, price: Int!, active: Boolean!, pay_date: String!): Subscription
+    updateSubscription(name: String!, price: Float!, active: Boolean!, pay_date: String!): Subscription
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
   }
+
 
 
 
