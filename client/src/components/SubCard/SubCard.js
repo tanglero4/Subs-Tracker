@@ -33,12 +33,13 @@ const SubCard = ({ name, price, id }) => {
     <Card variant='outlined' sx={{
       p: 2,
       m: 1,
-      height: 300,
+      height: 200,
       width: 300,
       maxHeight: 300,
-      maxWidth: 300,
+      maxWidth: 200,
+      borderRadius: '10%'
     }}>
-      <Container sx={{ p: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', bgcolor:'#1976D2'}} >
+      <Container sx={{ p: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', bgcolor:'#93E5AB'}} >
         <Typography variant='h6' align='center'> {name}</Typography>
         <ClearIcon
   color="danger"
