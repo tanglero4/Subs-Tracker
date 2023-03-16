@@ -7,7 +7,7 @@ import Auth from '../../utils/auth';
 
 function Navbar() {
   return (
-      <AppBar position='sticky'>
+      <AppBar position='sticky'  style={{background: '#93E5AB'}}>
         <Toolbar>
           {Auth.loggedIn() ? (
             <Typography variant='h6' component='div' sx={{ flexGrow: 1}}>

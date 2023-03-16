@@ -174,7 +174,7 @@ function Home() {
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>
-                <Button variant='contained' type='submit'>Add Subscription</Button>
+                <Button variant='contained' type='submit' sx={{bgcolor:'#93E5AB'}}>Add Subscription</Button>
               </Container>
             </form>
           </Card>
