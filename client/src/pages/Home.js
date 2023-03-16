@@ -14,6 +14,12 @@ function Home() {
   const [formState, setFormState] = useState({ name: '', price: '', pay_date: ''});
   const [addSub, {error}] = useMutation(ADD_SUB);
 
+  function getTotalCost(subscriptions) {
+    const totalCost = subscriptions.reduce((acc, sub) => acc + sub.price, 0);
+    return totalCost;
+  }
+
+  
   // const { data: userdata } = Auth.getUser();
 
   //go get user from local storage 
@@ -170,8 +176,9 @@ function Home() {
               </Container>
             </form>
           </Card>
-
+          <Typography>Total cost: {getTotalCost(subInfo)}</Typography>
         </Container>
+
 
         {error && (
           <div>
