@@ -25,6 +25,35 @@ export const ADD_SUB = gql`
 }
 `;
 
+export const DELETE_SUB = gql`
+  mutation deleteSub($name: String!) {
+  deleteSub(name: $name) {
+    _id
+    active
+    name
+    pay_date
+    price
+  }
+}
+`;
+// export const REMOVE_BOOK = gql`
+//   mutation removeBook($bookId: ID!) {
+//     removeBook(bookId: $bookId) {
+//       _id
+//       username
+//       email
+//       savedBooks {
+//         bookId
+//         authors
+//         image
+//         description
+//         title
+//         link
+//       }
+//     }
+//   }
+// `;
+
 
 
 
@@ -39,5 +68,7 @@ export const LOGIN_USER = gql`
     }
   }
 }
+
+
 `;
 

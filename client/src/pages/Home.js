@@ -14,6 +14,12 @@ function Home() {
   const [formState, setFormState] = useState({ name: '', price: '', pay_date: ''});
   const [addSub, {error}] = useMutation(ADD_SUB);
 
+  function getTotalCost(subscriptions) {
+    const totalCost = subscriptions.reduce((acc, sub) => acc + sub.price, 0);
+    return totalCost;
+  }
+
+  
   // const { data: userdata } = Auth.getUser();
 
   //go get user from local storage 
@@ -36,8 +42,6 @@ function Home() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -97,9 +101,13 @@ function Home() {
                 flexWrap: 'wrap',
               }}>
                 {subInfo.map((sub) => ( 
-                  <SubCard  key={sub._id} name={sub.name}  price={sub.price}/>
+                  <SubCard  key={sub._id} name={sub.name}  price={sub.price} id={sub._id}/>
                 ))}
               </Container>
+              <Container>
+              <Typography><strong>Total cost:</strong> ${getTotalCost(subInfo)}</Typography>
+              </Container>
+
             </>
           ) : (
             <div>
@@ -170,8 +178,8 @@ function Home() {
               </Container>
             </form>
           </Card>
-
         </Container>
+
 
         {error && (
           <div>

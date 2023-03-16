@@ -92,7 +92,7 @@ const Dashboard = () => {
         flexDirection: 'row',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        p: 2,
+        p: 2
       }}>
         <Container sx={{ flex: '2 1 400px', maxWidth: 700, display: 'flex', flexDirection: 'column', }}>
           <Typography variant='h4' sx={{ p: 3, mt: 3 }}>Welcome back, {data.user.username}!</Typography>
@@ -129,11 +129,11 @@ const Dashboard = () => {
             alignItems: 'center',
             justifyContent: 'center',
             p: 2,
-            flex: 'auto'
+            flex: 'auto',
           }}>
             <Typography variant='h4' align='center'>Add a New Subscription:</Typography>
             <form onSubmit={handleFormSubmit}>
-              <Container sx={{ p: 2 }}>
+              <Container sx={{ p: 2}}>
                 <TextField
                   label='Sub Name'
                   variant='outlined'
