@@ -43,8 +43,6 @@ function Home() {
     return <div>Loading...</div>;
   }
 
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -103,9 +101,13 @@ function Home() {
                 flexWrap: 'wrap',
               }}>
                 {subInfo.map((sub) => ( 
-                  <SubCard  key={sub._id} name={sub.name}  price={sub.price}/>
+                  <SubCard  key={sub._id} name={sub.name}  price={sub.price} id={sub._id}/>
                 ))}
               </Container>
+              <Container>
+              <Typography><strong>Total cost:</strong> ${getTotalCost(subInfo)}</Typography>
+              </Container>
+
             </>
           ) : (
             <div>
@@ -176,7 +178,6 @@ function Home() {
               </Container>
             </form>
           </Card>
-          <Typography>Total cost: {getTotalCost(subInfo)}</Typography>
         </Container>
 
 
