@@ -10,7 +10,7 @@ function Navbar() {
       <AppBar position='sticky'>
         <Toolbar>
           {Auth.loggedIn() ? (
-            <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+            <Typography variant='h6' component='div' sx={{ flexGrow: 1}}>
               <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>Sub Tracker <AttachMoneyIcon /></Link>
             </Typography>
           ) : (
