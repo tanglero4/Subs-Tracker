@@ -105,7 +105,7 @@ function Home() {
                 ))}
               </Container>
               <Container>
-              <Typography><strong>Total cost:</strong> ${getTotalCost(subInfo)}</Typography>
+              <Typography variant= 'h2'><strong>Total cost:</strong> ${getTotalCost(subInfo)}</Typography>
               </Container>
 
             </>

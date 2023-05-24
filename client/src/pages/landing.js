@@ -46,7 +46,7 @@ const LandingPage= () => {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <Link to='/signup' style={{ textDecoration: 'none' }}><Button variant='contained'>Sign Up Now</Button></Link>
+              <Link to='/signup' style={{ textDecoration: 'none'}}><Button variant='contained' sx={{ bgcolor:'#93E5AB'}}>Sign Up Now</Button></Link>
             </Container>
           </Card>
           <Card variant='outlined' sx={{
@@ -66,7 +66,7 @@ const LandingPage= () => {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <Link to='/login' style={{ textDecoration: 'none' }}><Button variant='contained'>Login now</Button></Link>
+              <Link to='/login' style={{ textDecoration: 'none'}}><Button variant='contained' sx={{ bgcolor:'#93E5AB'}}>Login now</Button></Link>
             </Container>
           </Card>
         </Container>
