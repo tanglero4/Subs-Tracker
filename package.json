@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
-  "scripts": {
-    "start": "node server --ignore client",
-    "develop": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
-    "install": "cd server && npm i && cd ../client && npm i",
-    "seed": "cd server && npm run seed",
-    "build": "cd client && npm run build"
+  "homepage": "https://tanglero4.github.io/Subs-Tracker",
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^5.1.0"
+"devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
